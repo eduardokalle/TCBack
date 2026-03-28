@@ -32,7 +32,7 @@ const emailContacto = 'ingenieria.tucarrera.co@gmail.com';
 
 
 const sequelize = new Sequelize(nombreBaseDeDatos, usrBaseDeDatos, pswBaseDeDatos, {
-    host: 'localhost',
+    host: process.env.DATABASE_HOST || 'localhost',
     dialect: 'mysql',
     pool: {
       max: 5,
