@@ -1,9 +1,30 @@
 services:
-  api:
-    build: .
-    ports:
-      - "49153:49153"
-    environment:
-      NODE_ENV: production
-      USE_HTTP: "1"
-    restart: unless-stopped
+ db:
+ image: mysql:8
+ environment:
+ MYSQL_DATABASE: tucarrera2026
+ MYSQL_USER: tcuser
+ MYSQL_PASSWORD: TC_abc123#
+ MYSQL_ROOT_PASSWORD: 
+ volumes:
+ - db_data:/var/lib/mysql
+ restart: unless-stopped
+
+ api:
+ build: .
+ ports:
+ - "49153:49153"
+ environment:
+ NODE_ENV: production
+ USE_HTTP: "1"
+ DB_HOST: db
+ DB_PORT: "3306"
+ DB_NAME: tucarrera2026
+ DB_USER: tcuser
+ DB_PASSWORD: TC_abc123#
+ depends_on:
+ - db
+ restart: unless-stopped
+
+volumes:
+ db_data:
