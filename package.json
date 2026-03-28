@@ -1,0 +1,43 @@
+{
+  "name": "backendtc",
+  "version": "0.1.0",
+  "description": "Backend para TuCarrera.co",
+  "main": "app.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "nodemon appLocal.js",
+    "prod": "node app.js",
+    "dev:migration:up": "npx sequelize-cli db:migrate",
+    "dev:migration:down": "npx sequelize-cli db:migrate:undo",
+    "prod:migration:up": "cross-env NODE_ENV=production npx sequelize-cli db:migrate",
+    "prod:migration:down": "cross-env NODE_ENV=production npx sequelize-cli db:migrate:undo"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.22.1",
+    "express-fileupload": "^1.1.4",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.9.0",
+    "mysql2": "^3.20.0",
+    "nodemailer": "^6.10.1",
+    "nodemon": "^3.1.4",
+    "rand-token": "^0.4.0",
+    "sequelize": "^6.37.8"
+  },
+  "keywords": [
+    "Backend",
+    "TuCarrera",
+    "Educacion"
+  ],
+  "author": "Tnt Outsourcing",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "sequelize-cli": "^6.6.5"
+  }
+}

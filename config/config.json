@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "user2026",
+    "password": "123456",
+    "database": "tucarrera",
+    "host": "127.0.0.1",
+    "port": 3307,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "local",
+    "password": "local",
+    "database": "tucarrera_development",
+    "host": "127.0.0.1",
+    "port": 3307,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "tcuser",
+    "password": "TC_abc123#",
+    "database": "tucarrera2026",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

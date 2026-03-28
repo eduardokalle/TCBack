@@ -1,0 +1,5 @@
+while true
+do
+	rsync -avu --delete "/home/tucarrera/backendtc/uploads/" "/var/www/html/uploads/"
+	sleep 1
+done
