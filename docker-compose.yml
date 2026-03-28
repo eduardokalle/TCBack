@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    ports:
+      - "49153:49153"
+    environment:
+      NODE_ENV: production
+      USE_HTTP: "1"
+    restart: unless-stopped
