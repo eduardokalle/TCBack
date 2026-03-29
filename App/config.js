@@ -20,11 +20,12 @@ const refreshTokens = {};
 
 const domain = 'https://tucarrera.co/#/';
 const baseURL = 'https://tucarrera.co/#/';
-const serverURL = 'https://tucarrera.co/uploads/';
+const serverURL = 'https:/api.tucarrera.co/uploads/';
 //const baseURL = 'http://31.220.60.37/#/';
 //const serverURL = 'http://31.220.60.37/uploads/';
 //const baseURL = 'http://localhost:4200/#/';
 //const serverURL = 'http://localhost:49153/';
+//const serverURL = 'http://localhost:5000/';
 
 const emailContacto = 'ingenieria.tucarrera.co@gmail.com'; 
 

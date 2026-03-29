@@ -133,6 +133,77 @@ const oferta = async ({
 		console.log("-------------- BUSCADOR --------------");
 
 
+		const includePrograma = [
+		{
+			model: Institucion,
+			as: 'institucion',
+			attributes: ['id', 'codigo_snies', 'nombre', 'sector', 'acreditacion', 'es_principal', 'fecha_registro',
+						'telefono_contacto', 'direccion_domicilio', 'programas_vigentes', 
+						'fecha_acreditacion', 'resolucion_acreditacion', 'vigencia_acreditacion', 
+						'ruta_logo', 'url_web', 'imagen_id'],
+			where: whereInstitucion,
+			include: [{
+				model: Ciudad,
+				as: 'ciudad',
+				attributes: ['id', 'nombre'],
+				where: whereCiudad,
+				include: [{
+					model: Departamento,
+					as: 'departamento',
+					attributes: ['id'],
+					where: whereDepartamento
+				}]
+			},
+            {
+                model: Archivo,
+                as: 'imagen',
+                attributes: ['id', 'url']
+            }]
+		},
+		{
+			model: NivelFormacion,
+			as: 'nivel_formacion',
+			attributes: ['id', 'nombre']
+		},
+		{
+			model: Metodologia,
+			as: 'metodologia',
+			attributes: ['id', 'nombre']
+		},
+		{
+			model: NucleoConocimiento,
+			as: 'nucleo_conocimiento',
+			attributes: ['id', 'nombre', 'area_conocimiento_id'],
+			where: whereNucleoConocimiento,
+			include: [{
+				model: AreaConocimiento,
+				as: 'area',
+				attributes: ['id', 'nombre']
+			}]
+		},
+		{
+			model: ProgramaPeriodo, 
+			as: 'periodos', 
+			attributes: ['id', 'programa_id', 'anno', 'periodo', 'cupos', 'postulados_hombres', 'postulados_mujeres', 
+						'admitidos_hombres', 'admitidos_mujeres', 'graduados_hombres', 'graduados_mujeres', 
+						'estudiantes_hombres', 'estudiantes_mujeres', 'matriculados_hombres', 'matriculados_mujeres'],
+			limit: 10,
+			order: [
+				['anno', 'desc'], ['periodo', 'desc'],
+			],
+			required: false
+		}];
+
+		if (user_id !== undefined && user_id !== null && user_id !== '') {
+			includePrograma.splice(4, 0, {
+				model: FavoritoUsuario,
+				as: 'favoritos',
+				attributes: ['id', 'fecha'],
+				where: { usuario_id: user_id },
+				required: false
+			});
+		}
+
 		let programa;
 		try {
 			programa = await Programa.findAll({
@@ -140,73 +211,7 @@ const oferta = async ({
 							'codigo_icfes', 'creditos', 'url_pensum', 'url_web', 'acreditacion', 'duracion_periodo', 
 							'nivel_formacion_id', 'metodologia_id', 'valor_matricula'],
 				where: wherePrograma,
-				include: [
-				{
-					model: Institucion,
-					as: 'institucion',
-					attributes: ['id', 'codigo_snies', 'nombre', 'sector', 'acreditacion', 'es_principal', 'fecha_registro',
-								'telefono_contacto', 'direccion_domicilio', 'programas_vigentes', 
-								'fecha_acreditacion', 'resolucion_acreditacion', 'vigencia_acreditacion', 
-								'ruta_logo', 'url_web', 'imagen_id'],
-					where: whereInstitucion,
-					include: [{
-						model: Ciudad,
-						as: 'ciudad',
-						attributes: ['id', 'nombre'],
-						where: whereCiudad,
-						include: [{
-							model: Departamento,
-							as: 'departamento',
-							attributes: ['id'],
-							where: whereDepartamento
-						}]
-					},
-	                {
-	                    model: Archivo,
-	                    as: 'imagen',
-	                    attributes: ['id', 'url']
-	                }]
-				},
-				{
-					model: NivelFormacion,
-					as: 'nivel_formacion',
-					attributes: ['id', 'nombre']
-				},
-				{
-					model: Metodologia,
-					as: 'metodologia',
-					attributes: ['id', 'nombre']
-				},
-				{
-					model: NucleoConocimiento,
-					as: 'nucleo_conocimiento',
-					attributes: ['id', 'nombre', 'area_conocimiento_id'],
-					where: whereNucleoConocimiento,
-					include: [{
-						model: AreaConocimiento,
-						as: 'area',
-						attributes: ['id', 'nombre']
-					}]
-				},
-				{
-					model: FavoritoUsuario, 
-					as: 'favoritos', 
-					attributes: ['id', 'fecha'],
-					where: { usuario_id: user_id },
-					required: false
-				},
-				{
-					model: ProgramaPeriodo, 
-					as: 'periodos', 
-					attributes: ['id', 'programa_id', 'anno', 'periodo', 'cupos', 'postulados_hombres', 'postulados_mujeres', 
-								'admitidos_hombres', 'admitidos_mujeres', 'graduados_hombres', 'graduados_mujeres', 
-								'estudiantes_hombres', 'estudiantes_mujeres', 'matriculados_hombres', 'matriculados_mujeres'],
-					limit: 10,
-					order: [
-						['anno', 'desc'], ['periodo', 'desc'],
-					],
-					required: false
-				}],
+				include: includePrograma,
 				order: [['nivel_academico', 'desc'],
 						['nombre', 'asc']],
 				offset: desde, 
