@@ -31,8 +31,9 @@ const onListen = () => {
 if (useHttp) {
     http.createServer(app).listen(app.get('port'), onListen);
 } else {
-    const sslFolder = '/etc/letsencrypt/live/tucarrera.co/'
-    const privateKey = fs.readFileSync(`${sslFolder}privkey.pem`);
-    const certificate = fs.readFileSync(`${sslFolder}fullchain.pem`);
-    https.createServer({ key: privateKey, cert: certificate }, app).listen(app.get('port'), onListen);
+    //const sslFolder = '/etc/letsencrypt/live/tucarrera.co/'
+    //const privateKey = fs.readFileSync(`${sslFolder}privkey.pem`);
+    //const certificate = fs.readFileSync(`${sslFolder}fullchain.pem`);
+    //https.createServer({ key: privateKey, cert: certificate }, app).listen(app.get('port'), onListen);
+    http.createServer(app).listen(app.get('port'), onListen);
 }
