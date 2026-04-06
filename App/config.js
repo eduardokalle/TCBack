@@ -20,7 +20,7 @@ const refreshTokens = {};
 
 const domain = 'https://tucarrera.co/#/';
 const baseURL = 'https://tucarrera.co/#/';
-const serverURL = 'https:/api.tucarrera.co/uploads/';
+const serverURL = 'https://api.tucarrera.co/uploads/';
 //const serverURL = 'http://72.62.162.6/uploads/';
 //const baseURL = 'http://31.220.60.37/#/';
 //const serverURL = 'http://31.220.60.37/uploads/';
