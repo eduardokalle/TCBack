@@ -80,13 +80,13 @@ const programa = async ({
 						attributes: ['id', 'nombre']
 					}]
 				},
-				{
-					model: FavoritoUsuario, 
-					as: 'favoritos', 
-					attributes: ['id', 'fecha'],
-					where: { usuario_id: user_id },
-					required: false
-				},
+				//{
+				//	model: FavoritoUsuario, 
+				//	as: 'favoritos', 
+				//	attributes: ['id', 'fecha'],
+				//	where: { usuario_id: user_id },
+				//	required: false
+				//},
 				{
 					model: ProgramaPeriodo, 
 					as: 'periodos', 
@@ -98,8 +98,19 @@ const programa = async ({
 						['anno', 'desc'], ['periodo', 'desc'],
 					],
 					required: false
-				}]
+				}
+			]
+				
 			});
+			if (user_id !== undefined && user_id !== null && user_id !== '') {
+				programa.splice(4, 0, {
+					model: FavoritoUsuario,
+					as: 'favoritos',
+					attributes: ['id', 'fecha'],
+					where: { usuario_id: user_id },
+					required: false
+				});
+			}
 		}
 		catch (error) {
 			console.log(" OFERTA ----- ERROR 1");
